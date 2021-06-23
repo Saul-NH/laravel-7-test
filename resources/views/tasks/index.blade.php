@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container">
+    
+    @include('partials.messages.confirmMessage')
+
     <a href="{{ route('tasks.create') }}" class="btn btn-success float-right mb-4">Agregar tarea</a>
     <table class="table table-bordered">
         <thead class="thead-dark">

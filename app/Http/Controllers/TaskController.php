@@ -98,6 +98,6 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return back()->with('mensaje', 'Task deleted');
     }
 }
