@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <a href="{{ route('tasks.create')}}" class="btn btn-success float-right mb-4">Agregar tarea</a>
+    <a href="{{ route('tasks.create') }}" class="btn btn-success float-right mb-4">Agregar tarea</a>
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -21,8 +21,20 @@
                     <td>{{ $task->description }}</td>
                     <td><img src="storage/{{ $task->image }}" alt="image" width="20%"></td>
                     <td>
-                        <button class="btn btn-primary">Editar</button>
-                        <button class="btn btn-danger">Eliminar</button>
+                       
+                        <a class="btn btn-primary form-control" href="{{ route('tasks.edit', $task->id)}}">Editar</a>
+
+                        <form id="form{{ $task->id }}"
+                            action="{{ route('tasks.destroy',$task->id) }}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <button class="btn btn-danger eliminar form-control" data-id="{{ $task->id }}" data-toggle="modal"
+                                data-target="#deleteTaskModal" onclick="event.preventDefault();">
+                                Eliminar
+                            </button>
+
+                        </form>
+
                     </td>
                 </tr>
             @empty
@@ -34,4 +46,6 @@
         </tbody>
     </table>
 </div>
+
+@include('partials.modals.deleteTaskModal')
 @endsection

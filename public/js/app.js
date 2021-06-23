@@ -1862,6 +1862,8 @@ try {
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
+
+  __webpack_require__(/*! ./jqueryFunctions */ "./resources/js/jqueryFunctions.js");
 } catch (e) {}
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -1885,6 +1887,46 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/jqueryFunctions.js":
+/*!*****************************************!*\
+  !*** ./resources/js/jqueryFunctions.js ***!
+  \*****************************************/
+/***/ (() => {
+
+$.when($.ready).then(function () {
+  var task_id;
+  /*
+      *   Configuración de ajax para peticiones post LARAVEL
+      */
+
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  /*
+      *   Boton para obtener el id del task a eliminar
+      */
+
+  $(".eliminar").on('click', function () {
+    task_id = $(this).attr('data-id');
+    console.log(task_id);
+  });
+  /*
+      *   Modal de confirmacion para la eliminación de un task
+      */
+
+  $('#deleteTaskModal').on('shown.bs.modal', function (e) {
+    $('#botonEliminar').click(function () {
+      $("#deleteTaskModal").modal("hide");
+      $('#form' + task_id).submit();
+      task_id = null;
+    });
+  });
+});
 
 /***/ }),
 
