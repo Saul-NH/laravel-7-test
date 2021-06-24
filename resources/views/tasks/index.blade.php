@@ -22,7 +22,7 @@
                     <th scope="row">{{ $task->id }}</th>
                     <td>{{ $task->title }}</td>
                     <td>{{ $task->description }}</td>
-                    <td><img src="storage/{{ $task->image }}" alt="image" width="20%"></td>
+                    <td style="white-space: nowrap; width: 20%;"><img src="storage/{{ $task->image }}" class="rounded mx-auto d-block" alt="image" width="70%"></td>
                     <td>
                        
                         <a class="btn btn-primary form-control" href="{{ route('tasks.edit', $task->id)}}">Editar</a>

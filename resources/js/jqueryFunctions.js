@@ -1,6 +1,7 @@
 $.when( $.ready ).then(function() {
     
     let task_id;
+    let tasksArray = [];
 
     /*
     *   Boton para obtener el id del task a eliminar
@@ -8,6 +9,36 @@ $.when( $.ready ).then(function() {
     $(".eliminar").on('click', function () {
         task_id = $(this).attr('data-id');
         console.log(task_id);
+    });
+
+    /*
+    *   Funcion para obtener el objeto task y modificar el botton  de carrito
+    */
+    $(".addToCar").on('click', function () {
+        task = $(this).attr('data-task');
+        //console.log(typeof JSON.parse(task));
+        task = JSON.parse(task);
+        tasksArray.push(task);
+        $('#carrito_cantidad').attr('hidden', false);
+        $('#carrito_cantidad').text(tasksArray.length);
+    });
+
+    /*
+    *   Funcion para mostrar el modal detalle del carrito
+    */
+    $('#carrito').on('click', function (){
+        let tableContent = "";
+
+        tasksArray.forEach((task) => {
+            tableContent += "<tr>";
+            tableContent += "<td>"+task.title+"</td>";
+            tableContent += "<td>"+task.description+"</td>";
+            tableContent += "<td>"+666+"</td>";
+            tableContent += "</tr>";
+        });
+
+        $('#carrito_detalle').modal('show');
+        $('#modal_body_detalle').html(tableContent);
     });
 
 
